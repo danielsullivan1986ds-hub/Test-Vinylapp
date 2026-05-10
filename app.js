@@ -1,5 +1,5 @@
 // CHANGE THIS to your Apps Script Web App URL
-const API_URL = "https://script.google.com/macros/s/AKfycbxv32yAHJtL5dXMmCZO3tJ5yyKnG9eitlHzmReE2QjDPd6fIGGJgQmBPa9aba94g4C0pg/exec";
+const API_URL = "YOUR_WEB_APP_URL_HERE";
 
 let vinylCache = [];
 let trackCache = [];
@@ -87,16 +87,34 @@ function renderBrowse(rows) {
       div.className = "browse-item";
 
       div.innerHTML = `
-  <strong>${artist}</strong> – ${album}<br>
-  <span>Year: ${year} | Format: ${format} | Value: £${value}</span><br>
-  <span>Notes: ${notes}</span><br>
-  <span>Date Added: ${cleanDate}</span><br>
-  <button class="edit-btn" onclick="window.open('${editLink}', '_blank')">Edit</button>
-`;
+        <strong>${artist}</strong> – ${album}<br>
+        <span>Year: ${year} | Format: ${format} | Value: £${value}</span><br>
+        <span>Notes: ${notes}</span><br>
+        <span>Date Added: ${cleanDate}</span><br>
 
+        <button class="edit-btn" onclick="window.open('${editLink}', '_blank')">Edit</button>
+        <button class="delete-btn" onclick="deleteVinyl('${id}')">Delete</button>
+      `;
 
       list.appendChild(div);
     });
+}
+
+// ---------------- DELETE FUNCTION ----------------
+
+async function deleteVinyl(id) {
+  if (!confirm("Delete this record?")) return;
+
+  await fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "delete",
+      id: id
+    })
+  });
+
+  alert("Deleted");
+  loadVinyls();
 }
 
 // ---------------- TRACKS PAGE ----------------
@@ -110,27 +128,6 @@ document.getElementById("trackFilter").addEventListener("input", () => {
   const f = document.getElementById("trackFilter").value.toLowerCase();
   const filtered = trackCache.filter(r => r.join(" ").toLowerCase().includes(f));
   renderTracks(filtered);
-});
-
-document.getElementById("trackForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const form = new FormData(e.target);
-  const row = [
-    form.get("vinylId"),
-    form.get("trackNum"),
-    form.get("trackName"),
-    form.get("genre")
-  ];
-
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({ sheet: "Tracks", row })
-  });
-
-  alert("Track added!");
-  e.target.reset();
-  loadTracks();
 });
 
 // ---------------- SEARCH PAGE ----------------
