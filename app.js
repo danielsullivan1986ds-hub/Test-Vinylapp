@@ -1,5 +1,5 @@
 // CHANGE THIS to your Apps Script Web App URL
-const API_URL = https://script.google.com/macros/s/AKfycbxWOUjLgyfIoXGvJWFfhbI3HoSx0Op_Mf68DAeeFKf5vQC_ZbQK76BX_wEOWl4cc3oyRQ/exec;
+const API_URL = "https://script.google.com/macros/s/AKfycbxWOUjLgyfIoXGvJWFfhbI3HoSx0Op_Mf68DAeeFKf5vQC_ZbQK76BX_wEOWl4cc3oyRQ/exec";
 
 let vinylCache = [];
 let trackCache = [];
