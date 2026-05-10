@@ -46,3 +46,16 @@ body {
 .browse-item {
   color: #000; /* force black text */
 }
+.edit-btn {
+  margin-top: 6px;
+  padding: 6px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
+}
