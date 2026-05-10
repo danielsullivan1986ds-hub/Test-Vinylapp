@@ -78,3 +78,6 @@ body {
 .track-form button:hover {
   background: #0056b3;
 }
+#page-tracks {
+  padding-bottom: 120px; /* extra space so Add Track button is not hidden */
+}
