@@ -87,11 +87,13 @@ function renderBrowse(rows) {
       div.className = "browse-item";
 
       div.innerHTML = `
-        <strong>${artist}</strong> – ${album}<br>
-        <span>Year: ${year} | Format: ${format} | Value: £${value}</span><br>
-        <span>Notes: ${notes}</span><br>
-        <span>Date Added: ${cleanDate}</span>
-      `;
+  <strong>${artist}</strong> – ${album}<br>
+  <span>Year: ${year} | Format: ${format} | Value: £${value}</span><br>
+  <span>Notes: ${notes}</span><br>
+  <span>Date Added: ${cleanDate}</span><br>
+  <button class="edit-btn" onclick="window.open('${editLink}', '_blank')">Edit</button>
+`;
+
 
       list.appendChild(div);
     });
