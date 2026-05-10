@@ -163,4 +163,3 @@ function renderSearch(vinyls, tracks) {
 
 loadVinyls();
 loadTracks();
-
