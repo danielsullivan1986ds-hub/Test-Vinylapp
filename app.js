@@ -116,6 +116,8 @@ function deleteVinyl(id) {
   }
 
   return "NOT_FOUND";
+Logger.log("Deleting ID: " + id);
+Logger.log("Sheet IDs: " + JSON.stringify(data.map(r => r[0])));
 
 
 }
