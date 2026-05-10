@@ -1,8 +1,8 @@
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
 }
 
 .page {
@@ -17,45 +17,46 @@ body {
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   background: #222;
+  padding: 10px;
   display: flex;
   justify-content: space-around;
-  padding: 12px 0;
 }
 
 .bottom-nav button {
-  background: none;
-  border: none;
+  background: #444;
   color: white;
-  font-size: 16px;
-}
-.browse-item {
-  background: #fff;
-  padding: 12px;
-  margin: 8px 0;
+  border: none;
+  padding: 10px 14px;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  font-size: 14px;
-  line-height: 1.4;
+  cursor: pointer;
 }
 
-.browse-item strong {
-  font-size: 16px;
-}
 .browse-item {
-  color: #000; /* force black text */
+  background: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
 }
+
 .edit-btn {
   margin-top: 6px;
   padding: 6px 12px;
   background: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.edit-btn:hover {
-  background: #0056b3;
+.delete-btn {
+  margin-left: 8px;
+  padding: 6px 12px;
+  background: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
