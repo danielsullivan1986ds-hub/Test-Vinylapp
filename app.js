@@ -57,6 +57,22 @@ function renderHome(rows) {
 }
 
 // ---------------- BROWSE PAGE ----------------
+function extractYear(value) {
+  if (!value) return "";
+
+  // If it's a date string like "1905-07-04T00:00:00.000Z"
+  if (typeof value === "string" && value.includes("-")) {
+    return value.slice(0, 4);
+  }
+
+  // If it's a Date object
+  if (value instanceof Date) {
+    return value.getFullYear();
+  }
+
+  // If it's a number (e.g. 2001)
+  return String(value).slice(0, 4);
+}
 
 function renderBrowse(rows) {
   const list = document.getElementById("browseList");
