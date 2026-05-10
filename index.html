@@ -44,9 +44,20 @@
 
 
   <div id="page-tracks" class="page">
-    <h1>Tracks</h1>
-    <div id="trackList"></div>
-  </div>
+  <h1>Tracks</h1>
+
+  <input id="trackFilter" placeholder="Filter tracks">
+
+  <form id="trackForm">
+    <input name="trackArtist" placeholder="Artist">
+    <input name="trackAlbum" placeholder="Album">
+    <input name="trackName" placeholder="Track Name">
+    <button type="submit">Add Track</button>
+  </form>
+
+  <div id="trackList"></div>
+</div>
+
 
   <div id="page-search" class="page">
     <h1>Search</h1>
