@@ -20,12 +20,32 @@
     <div id="browseList"></div>
   </div>
 
-  <!-- TRACKS -->
-  <div id="page-tracks" class="page">
-    <h2>Tracks</h2>
-    <input id="trackFilter" placeholder="Filter tracks...">
-    <div id="trackList"></div>
+ <div id="page-tracks" class="page">
+  <h2>Tracks</h2>
+
+  <!-- FILTER BY ALBUM -->
+  <label>Select Album:</label>
+  <select id="albumFilter">
+    <option value="">All Albums</option>
+  </select>
+
+  <div id="trackList"></div>
+
+  <h3>Add Track</h3>
+  <div class="track-form">
+    <label>Track #</label>
+    <input id="newTrackNum">
+
+    <label>Track Name</label>
+    <input id="newTrackName">
+
+    <label>Genre</label>
+    <input id="newTrackGenre">
+
+    <button onclick="addTrack()">Add Track</button>
   </div>
+</div>
+
 
   <!-- SEARCH -->
   <div id="page-search" class="page">
