@@ -20,32 +20,31 @@
     <div id="browseList"></div>
   </div>
 
- <div id="page-tracks" class="page">
-  <h2>Tracks</h2>
+  <!-- TRACKS -->
+  <div id="page-tracks" class="page">
+    <h2>Tracks</h2>
 
-  <!-- FILTER BY ALBUM -->
-  <label>Select Album:</label>
-  <select id="albumFilter">
-    <option value="">All Albums</option>
-  </select>
+    <label>Select Album:</label>
+    <select id="albumFilter">
+      <option value="">All Albums</option>
+    </select>
 
-  <div id="trackList"></div>
+    <div id="trackList"></div>
 
-  <h3>Add Track</h3>
-  <div class="track-form">
-    <label>Track #</label>
-    <input id="newTrackNum">
+    <h3>Add Track</h3>
+    <div class="track-form">
+      <label>Track #</label>
+      <input id="newTrackNum">
 
-    <label>Track Name</label>
-    <input id="newTrackName">
+      <label>Track Name</label>
+      <input id="newTrackName">
 
-    <label>Genre</label>
-    <input id="newTrackGenre">
+      <label>Genre</label>
+      <input id="newTrackGenre">
 
-    <button onclick="addTrack()">Add Track</button>
+      <button onclick="addTrack()">Add Track</button>
+    </div>
   </div>
-</div>
-
 
   <!-- SEARCH -->
   <div id="page-search" class="page">
@@ -58,7 +57,6 @@
   <nav class="bottom-nav">
     <button data-page="home">Home</button>
 
-    <!-- ADD BUTTON (opens form + returns home) -->
     <button onclick="
       window.open('https://docs.google.com/forms/d/e/1FAIpQLSdJYOzlQQZk_lM3pAbCEqqzl7HqjMNH81Y6eTJwNVgq-k6SmQ/viewform', '_blank');
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
