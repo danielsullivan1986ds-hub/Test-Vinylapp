@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vinyl Collection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="page-home" class="page active">
+    <h1>Home</h1>
+    <div id="stats"></div>
+  </div>
+
+  <div id="page-add" class="page">
+    <h1>Add Vinyl</h1>
+    <form id="addForm">
+      <input name="artist" placeholder="Artist" required>
+      <input name="album" placeholder="Album Title" required>
+      <input name="year" placeholder="Release Year">
+      <input name="format" placeholder="Format">
+      <input name="value" placeholder="Value">
+      <input name="notes" placeholder="Notes">
+      <button type="submit">Add Vinyl</button>
+    </form>
+  </div>
+
+  <div id="page-browse" class="page">
+    <h1>Browse</h1>
+    <div id="browseList"></div>
+  </div>
+
+  <div id="page-tracks" class="page">
+    <h1>Tracks</h1>
+    <div id="trackList"></div>
+  </div>
+
+  <div id="page-search" class="page">
+    <h1>Search</h1>
+    <input id="searchInput" placeholder="Search everything">
+    <div id="searchResults"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button data-page="home">Home</button>
+    <button data-page="add">Add</button>
+    <button data-page="browse">Browse</button>
+    <button data-page="tracks">Tracks</button>
+    <button data-page="search">Search</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
