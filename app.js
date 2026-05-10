@@ -94,7 +94,7 @@ function renderBrowse(rows) {
         <span>Date Added: ${cleanDate}</span><br>
 
         <button class="edit-btn" onclick="window.open('${editLink}', '_blank')">Edit</button>
-        <button class="delete-btn" onclick="deleteVinyl('${id}')">Delete</button>
+        <button class="delete-btn" onclick="confirmDelete('${id}')">Delete</button>
       `;
 
       list.appendChild(div);
@@ -103,29 +103,25 @@ function renderBrowse(rows) {
 
 // ---------------- DELETE VINYL ----------------
 
-function deleteVinyl(id) {
-  const ss = SpreadsheetApp.openById("YOUR_SHEET_ID_HERE");
-  const sheet = ss.getSheetByName("Vinyl Inventory");
-  const data = sheet.getDataRange().getValues();
-
-  id = String(id).trim();
-
-  for (let i = 1; i < data.length; i++) {
-    const rowId = String(data[i][0]).trim();
-
-    if (rowId === id) {
-      sheet.deleteRow(i + 1);
-      return "OK";
-    }
-  }
-
-  return "NOT_FOUND";
+function confirmDelete(id) {
+  if (!confirm("Delete this record?")) return;
+  deleteVinyl(id);
 }
 
+async function deleteVinyl(id) {
+  await fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "delete",
+      id: id
+    })
+  });
+
+  loadVinyls(); // refresh list
+}
 
 // ---------------- TRACKS PAGE ----------------
 
-// Populate album dropdown
 function populateAlbumFilter() {
   const select = document.getElementById("albumFilter");
   if (!select) return;
@@ -144,7 +140,6 @@ function populateAlbumFilter() {
   });
 }
 
-// Render tracks
 function renderTracks(rows) {
   document.getElementById("trackList").innerHTML =
     rows.map(r => {
@@ -167,7 +162,6 @@ function renderTracks(rows) {
     }).join("");
 }
 
-// Filter by album
 document.getElementById("albumFilter").addEventListener("change", () => {
   const selected = document.getElementById("albumFilter").value;
 
@@ -180,7 +174,6 @@ document.getElementById("albumFilter").addEventListener("change", () => {
   renderTracks(filtered);
 });
 
-// Add track
 async function addTrack() {
   const vinylId = document.getElementById("albumFilter").value;
   if (!vinylId) {
@@ -213,6 +206,7 @@ async function addTrack() {
 
   loadTracks();
 }
+
 ["newTrackNum", "newTrackName", "newTrackGenre"].forEach(id => {
   document.getElementById(id).addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -221,7 +215,6 @@ async function addTrack() {
     }
   });
 });
-
 
 // ---------------- INITIAL LOAD ----------------
 
