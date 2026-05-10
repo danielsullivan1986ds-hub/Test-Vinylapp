@@ -94,7 +94,7 @@ function renderBrowse(rows) {
         <span>Date Added: ${cleanDate}</span><br>
 
         <button class="edit-btn" onclick="window.open('${editLink}', '_blank')">Edit</button>
-        <button class="delete-btn" onclick="confirmDelete('${id}')">Delete</button>
+        
       `;
 
       list.appendChild(div);
