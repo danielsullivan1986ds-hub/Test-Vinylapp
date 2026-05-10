@@ -1,4 +1,4 @@
-// CHANGE THIS to your Apps Script Web App URL
+// ---------------- CONFIG ----------------
 const API_URL = "https://script.google.com/macros/s/AKfycbxv32yAHJtL5dXMmCZO3tJ5yyKnG9eitlHzmReE2QjDPd6fIGGJgQmBPa9aba94g4C0pg/exec";
 
 let vinylCache = [];
@@ -34,6 +34,7 @@ async function loadVinyls() {
 
   renderHome(rows);
   renderBrowse(rows);
+  populateAlbumFilter();
 }
 
 // ---------------- LOAD TRACKS ----------------
@@ -100,7 +101,7 @@ function renderBrowse(rows) {
     });
 }
 
-// ---------------- DELETE FUNCTION ----------------
+// ---------------- DELETE VINYL ----------------
 
 async function deleteVinyl(id) {
   if (!confirm("Delete this record?")) return;
@@ -119,43 +120,93 @@ async function deleteVinyl(id) {
 
 // ---------------- TRACKS PAGE ----------------
 
-function renderTracks(rows) {
-  document.getElementById("trackList").innerHTML =
-    rows.map(r => `<p>Vinyl ${r[0]} – ${r[2]} (${r[3]})</p>`).join("");
+// Populate album dropdown
+function populateAlbumFilter() {
+  const select = document.getElementById("albumFilter");
+  if (!select) return;
+
+  select.innerHTML = `<option value="">All Albums</option>`;
+
+  vinylCache.forEach(r => {
+    const id = r[0];
+    const artist = r[1];
+    const album = r[2];
+
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = `${artist} – ${album}`;
+    select.appendChild(option);
+  });
 }
 
-document.getElementById("trackFilter").addEventListener("input", () => {
-  const f = document.getElementById("trackFilter").value.toLowerCase();
-  const filtered = trackCache.filter(r => r.join(" ").toLowerCase().includes(f));
+// Render tracks
+function renderTracks(rows) {
+  document.getElementById("trackList").innerHTML =
+    rows.map(r => {
+      const vinylId = r[0];
+      const trackNum = r[1];
+      const trackName = r[2];
+      const genre = r[3];
+
+      const vinyl = vinylCache.find(v => v[0] == vinylId);
+      const artist = vinyl ? vinyl[1] : "";
+      const album = vinyl ? vinyl[2] : "";
+
+      return `
+        <div class="browse-item">
+          <strong>${artist}</strong> – ${album}<br>
+          Track ${trackNum}: ${trackName}<br>
+          Genre: ${genre}
+        </div>
+      `;
+    }).join("");
+}
+
+// Filter by album
+document.getElementById("albumFilter").addEventListener("change", () => {
+  const selected = document.getElementById("albumFilter").value;
+
+  if (!selected) {
+    renderTracks(trackCache);
+    return;
+  }
+
+  const filtered = trackCache.filter(r => r[0] == selected);
   renderTracks(filtered);
 });
 
-// ---------------- SEARCH PAGE ----------------
+// Add track
+async function addTrack() {
+  const vinylId = document.getElementById("albumFilter").value;
+  if (!vinylId) {
+    alert("Select an album first");
+    return;
+  }
 
-document.getElementById("searchInput").addEventListener("input", () => {
-  const q = document.getElementById("searchInput").value.toLowerCase();
+  const trackNum = document.getElementById("newTrackNum").value;
+  const trackName = document.getElementById("newTrackName").value;
+  const genre = document.getElementById("newTrackGenre").value;
 
-  const vinylMatches = vinylCache.filter(r =>
-    r.join(" ").toLowerCase().includes(q)
-  );
+  if (!trackNum || !trackName || !genre) {
+    alert("Fill all fields");
+    return;
+  }
 
-  const trackMatches = trackCache.filter(r =>
-    r.join(" ").toLowerCase().includes(q)
-  );
+  await fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      sheet: "Tracks",
+      row: [vinylId, trackNum, trackName, genre]
+    })
+  });
 
-  renderSearch(vinylMatches, trackMatches);
-});
+  alert("Track added!");
 
-function renderSearch(vinyls, tracks) {
-  const div = document.getElementById("searchResults");
+  document.getElementById("newTrackNum").value = "";
+  document.getElementById("newTrackName").value = "";
+  document.getElementById("newTrackGenre").value = "";
 
-  div.innerHTML = `
-    <h3>Vinyls</h3>
-    ${vinyls.map(r => `<p>${r[1]} – ${r[2]}</p>`).join("") || "<p>No vinyls found.</p>"}
-
-    <h3>Tracks</h3>
-    ${tracks.map(r => `<p>${r[2]} (${r[3]})</p>`).join("") || "<p>No tracks found.</p>"}
-  `;
+  loadTracks();
 }
 
 // ---------------- INITIAL LOAD ----------------
