@@ -104,23 +104,24 @@ function renderBrowse(rows) {
 // ---------------- DELETE VINYL ----------------
 
 function deleteVinyl(id) {
-  const ss = SpreadsheetApp.openById("11qGQNCHWGuIMd0FMWJsZskPGdr4hNn0DcDwAXCdJT6g");
+  const ss = SpreadsheetApp.openById("YOUR_SHEET_ID_HERE");
   const sheet = ss.getSheetByName("Vinyl Inventory");
   const data = sheet.getDataRange().getValues();
 
+  id = String(id).trim();
+
   for (let i = 1; i < data.length; i++) {
-    if (String(data[i][0]) === String(id)) {
+    const rowId = String(data[i][0]).trim();
+
+    if (rowId === id) {
       sheet.deleteRow(i + 1);
       return "OK";
     }
   }
 
   return "NOT_FOUND";
-Logger.log("Deleting ID: " + id);
-Logger.log("Sheet IDs: " + JSON.stringify(data.map(r => r[0])));
-
-
 }
+
 
 // ---------------- TRACKS PAGE ----------------
 
