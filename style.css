@@ -43,3 +43,6 @@ body {
 .browse-item strong {
   font-size: 16px;
 }
+.browse-item {
+  color: #000; /* force black text */
+}
