@@ -72,7 +72,8 @@ function renderBrowse(rows) {
 
       div.innerHTML = `
         <strong>${artist}</strong> – ${album}<br>
-        <span>Year: ${String(year).slice(0, 4)} | Format: ${format} | Value: £${value}</span><br>
+       <span>Year: ${extractYear(year)} | Format: ${format} | Value: £${value}</span><br>
+
         <span>Notes: ${notes || ""}</span><br>
         <span>Date Added: ${cleanDate}</span>
       `;
