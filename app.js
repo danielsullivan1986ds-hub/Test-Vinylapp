@@ -101,24 +101,8 @@ function renderBrowse(rows) {
     });
 }
 
-// ---------------- DELETE VINYL ----------------
 
-function confirmDelete(id) {
-  if (!confirm("Delete this record?")) return;
-  deleteVinyl(id);
-}
 
-async function deleteVinyl(id) {
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "delete",
-      id: id
-    })
-  });
-
-  loadVinyls(); // refresh list
-}
 
 // ---------------- TRACKS PAGE ----------------
 
