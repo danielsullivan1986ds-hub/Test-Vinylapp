@@ -208,6 +208,15 @@ async function addTrack() {
 
   loadTracks();
 }
+["newTrackNum", "newTrackName", "newTrackGenre"].forEach(id => {
+  document.getElementById(id).addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addTrack();
+    }
+  });
+});
+
 
 // ---------------- INITIAL LOAD ----------------
 
