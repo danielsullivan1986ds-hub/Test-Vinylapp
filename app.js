@@ -46,28 +46,39 @@ function renderHome(rows) {
 
 function renderBrowse(rows) {
   const list = document.getElementById("browseList");
-  list.innerHTML = rows.map(r => `
-    <p><strong>${r[1]}</strong> – ${r[2]} (${r[3]}) £${r[5]}</p>
-  `).join("");
-}
+  list.innerHTML = "";
 
-document.getElementById("browseFilter").addEventListener("input", applyBrowseFilters);
-document.getElementById("browseSort").addEventListener("change", applyBrowseFilters);
+  rows
+    .filter(r => r[1]) // remove empty rows
+    .forEach(r => {
+      const [
+        id,
+        artist,
+        album,
+        year,
+        format,
+        value,
+        notes,
+        dateAdded,
+        editLink
+      ] = r;
 
-function applyBrowseFilters() {
-  const filter = document.getElementById("browseFilter").value.toLowerCase();
-  const sort = document.getElementById("browseSort").value;
+      const cleanDate = dateAdded
+        ? new Date(dateAdded).toLocaleDateString("en-GB")
+        : "";
 
-  let rows = vinylCache.filter(r =>
-    r.join(" ").toLowerCase().includes(filter)
-  );
+      const div = document.createElement("div");
+      div.className = "browse-item";
 
-  if (sort === "artist") rows.sort((a, b) => (a[1] || "").localeCompare(b[1] || ""));
-  if (sort === "year") rows.sort((a, b) => (parseInt(a[3]) || 0) - (parseInt(b[3]) || 0));
-  if (sort === "value") rows.sort((a, b) => (Number(a[5]) || 0) - (Number(b[5]) || 0));
-  if (sort === "date") rows.sort((a, b) => new Date(a[7]) - new Date(b[7]));
+      div.innerHTML = `
+        <strong>${artist}</strong> – ${album}<br>
+        <span>Year: ${year} | Format: ${format} | Value: £${value}</span><br>
+        <span>Notes: ${notes || ""}</span><br>
+        <span>Date Added: ${cleanDate}</span>
+      `;
 
-  renderBrowse(rows);
+      list.appendChild(div);
+    });
 }
 
 // ---------- ADD VINYL ----------
