@@ -26,39 +26,35 @@
     </form>
   </div>
 
-<div id="page-browse" class="page">
-  <h1>Browse</h1>
+  <div id="page-browse" class="page">
+    <h1>Browse</h1>
 
-  <input id="browseFilter" placeholder="Filter by artist, album, format">
+    <input id="browseFilter" placeholder="Filter by artist, album, format">
 
-  <select id="browseSort">
-    <option value="artist">Artist A→Z</option>
-    <option value="year">Release Year</option>
-    <option value="value">Value</option>
-    <option value="date">Date Added</option>
-  </select>
+    <select id="browseSort">
+      <option value="artist">Artist A→Z</option>
+      <option value="year">Release Year</option>
+      <option value="value">Value</option>
+      <option value="date">Date Added</option>
+    </select>
 
-  <div id="browseList"></div>
-</div>
+    <div id="browseList"></div>
+  </div>
 
+  <div id="page-tracks" class="page">
+    <h1>Tracks</h1>
 
+    <input id="trackFilter" placeholder="Filter tracks">
 
- <div id="page-tracks" class="page">
-  <h1>Tracks</h1>
+    <form id="trackForm">
+      <input name="trackArtist" placeholder="Artist">
+      <input name="trackAlbum" placeholder="Album">
+      <input name="trackName" placeholder="Track Name">
+      <button type="submit">Add Track</button>
+    </form>
 
-  <input id="trackFilter" placeholder="Filter tracks">
-
-  <form id="trackForm">
-    <input name="trackArtist" placeholder="Artist">
-    <input name="trackAlbum" placeholder="Album">
-    <input name="trackName" placeholder="Track Name">
-    <button type="submit">Add Track</button>
-  </form>
-
-  <div id="trackList"></div>
-</div>
-
-
+    <div id="trackList"></div>
+  </div>
 
   <div id="page-search" class="page">
     <h1>Search</h1>
@@ -68,9 +64,12 @@
 
   <nav class="bottom-nav">
     <button data-page="home">Home</button>
-<button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdsMrPMeMYZ0cwMRBMNncdFTkAi5asBYct0znj4hVAFGcw8Xg/viewform', '_blank')">
-  Add
-</button>
+
+    <!-- ⭐ Add button now opens your Google Form -->
+    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdsMrPMeMYZ0cwMRBMNncdFTkAi5asBYct0znj4hVAFGcw8Xg/viewform', '_blank')">
+      Add
+    </button>
+
     <button data-page="browse">Browse</button>
     <button data-page="tracks">Tracks</button>
     <button data-page="search">Search</button>
