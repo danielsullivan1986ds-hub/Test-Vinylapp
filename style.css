@@ -60,3 +60,21 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+.track-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.track-form button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.track-form button:hover {
+  background: #0056b3;
+}
