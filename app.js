@@ -81,33 +81,7 @@ function renderBrowse(rows) {
     });
 }
 
-// ---------- ADD VINYL ----------
 
-document.getElementById("addForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const form = new FormData(e.target);
-  const row = [
-    "",                        // ID (formula in sheet)
-    form.get("artist"),
-    form.get("album"),
-    form.get("year"),
-    form.get("format"),
-    form.get("value"),
-    form.get("notes"),
-    new Date(),                // Date Added
-    ""                         // Edit link (formula)
-  ];
-
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({ sheet: "Vinyl Inventory", row })
-  });
-
-  alert("Vinyl added!");
-  e.target.reset();
-  loadVinyls();
-});
 
 // ---------- TRACKS ----------
 
