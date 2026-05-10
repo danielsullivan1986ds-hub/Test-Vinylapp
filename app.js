@@ -51,7 +51,10 @@ async function loadTracks() {
 
 function renderHome(rows) {
   const total = rows.length;
-  const value = rows.reduce((t, r) => t + Number(r[5] || 0), 0);
+  const value = rows.reduce((t, r) => {
+  const v = parseFloat(r[5]);
+  return t + (isNaN(v) ? 0 : v);
+}, 0);
 
   document.getElementById("stats").innerHTML = `
     <p><strong>Vinyls:</strong> ${total}</p>
