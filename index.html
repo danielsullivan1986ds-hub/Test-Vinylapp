@@ -26,10 +26,21 @@
     </form>
   </div>
 
-  <div id="page-browse" class="page">
-    <h1>Browse</h1>
-    <div id="browseList"></div>
-  </div>
+ <div id="page-browse" class="page">
+  <h1>Browse</h1>
+
+  <input id="browseFilter" placeholder="Filter by artist, album, format">
+
+  <select id="browseSort">
+    <option value="artist">Artist A→Z</option>
+    <option value="year">Release Year</option>
+    <option value="value">Value</option>
+    <option value="date">Date Added</option>
+  </select>
+
+  <div id="browseList"></div>
+</div>
+
 
   <div id="page-tracks" class="page">
     <h1>Tracks</h1>
