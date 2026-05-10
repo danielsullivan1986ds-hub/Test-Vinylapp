@@ -9,7 +9,7 @@ let trackCache = [];
 document.querySelectorAll(".bottom-nav button").forEach(btn => {
   btn.addEventListener("click", () => {
     const page = btn.dataset.page;
-    if (!page) return; // prevents crashes if a button has no data-page
+    if (!page) return;
 
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
@@ -20,6 +20,8 @@ document.querySelectorAll(".bottom-nav button").forEach(btn => {
 
 function extractYear(value) {
   if (!value) return "";
+  if (typeof value === "string" && value.includes("-")) return value.slice(0, 4);
+  if (value instanceof Date) return value.getFullYear();
   return String(value).slice(0, 4);
 }
 
@@ -27,7 +29,7 @@ function extractYear(value) {
 
 async function loadVinyls() {
   const data = await fetch(API_URL + "?sheet=Vinyl Inventory").then(r => r.json());
-  const rows = data.slice(1); // skip header
+  const rows = data.slice(1);
   vinylCache = rows;
 
   renderHome(rows);
@@ -57,29 +59,13 @@ function renderHome(rows) {
 }
 
 // ---------------- BROWSE PAGE ----------------
-function extractYear(value) {
-  if (!value) return "";
-
-  // If it's a date string like "1905-07-04T00:00:00.000Z"
-  if (typeof value === "string" && value.includes("-")) {
-    return value.slice(0, 4);
-  }
-
-  // If it's a Date object
-  if (value instanceof Date) {
-    return value.getFullYear();
-  }
-
-  // If it's a number (e.g. 2001)
-  return String(value).slice(0, 4);
-}
 
 function renderBrowse(rows) {
   const list = document.getElementById("browseList");
   list.innerHTML = "";
 
   rows
-    .filter(r => r[1]) // remove empty rows
+    .filter(r => r[1])
     .forEach(r => {
       const id        = r[0] || "";
       const artist    = r[1] || "";
@@ -166,4 +152,14 @@ function renderSearch(vinyls, tracks) {
 
   div.innerHTML = `
     <h3>Vinyls</h3>
-    ${vinyls.map(r => `
+    ${vinyls.map(r => `<p>${r[1]} – ${r[2]}</p>`).join("") || "<p>No vinyls found.</p>"}
+
+    <h3>Tracks</h3>
+    ${tracks.map(r => `<p>${r[2]} (${r[3]})</p>`).join("") || "<p>No tracks found.</p>"}
+  `;
+}
+
+// ---------------- INITIAL LOAD ----------------
+
+loadVinyls();
+loadTracks();
