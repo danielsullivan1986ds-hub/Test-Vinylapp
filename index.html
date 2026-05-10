@@ -2,81 +2,50 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Vinyl Collection</title>
+  <title>Vinyl App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- HOME -->
   <div id="page-home" class="page active">
-    <h1>Home</h1>
+    <h2>Home</h2>
     <div id="stats"></div>
   </div>
 
-  <div id="page-add" class="page">
-    <h1>Add Vinyl</h1>
-    <form id="addForm">
-      <input name="artist" placeholder="Artist" required>
-      <input name="album" placeholder="Album Title" required>
-      <input name="year" placeholder="Release Year">
-      <input name="format" placeholder="Format">
-      <input name="value" placeholder="Value">
-      <input name="notes" placeholder="Notes">
-      <button type="submit">Add Vinyl</button>
-    </form>
-  </div>
-
+  <!-- BROWSE -->
   <div id="page-browse" class="page">
-    <h1>Browse</h1>
-
-    <input id="browseFilter" placeholder="Filter by artist, album, format">
-
-    <select id="browseSort">
-      <option value="artist">Artist A→Z</option>
-      <option value="year">Release Year</option>
-      <option value="value">Value</option>
-      <option value="date">Date Added</option>
-    </select>
-
+    <h2>Browse</h2>
     <div id="browseList"></div>
   </div>
 
+  <!-- TRACKS -->
   <div id="page-tracks" class="page">
-    <h1>Tracks</h1>
-
-    <input id="trackFilter" placeholder="Filter tracks">
-
-    <form id="trackForm">
-      <input name="trackArtist" placeholder="Artist">
-      <input name="trackAlbum" placeholder="Album">
-      <input name="trackName" placeholder="Track Name">
-      <button type="submit">Add Track</button>
-    </form>
-
+    <h2>Tracks</h2>
+    <input id="trackFilter" placeholder="Filter tracks...">
     <div id="trackList"></div>
   </div>
 
+  <!-- SEARCH -->
   <div id="page-search" class="page">
-    <h1>Search</h1>
-    <input id="searchInput" placeholder="Search everything">
+    <h2>Search</h2>
+    <input id="searchInput" placeholder="Search vinyls or tracks...">
     <div id="searchResults"></div>
   </div>
 
+  <!-- NAVIGATION -->
   <nav class="bottom-nav">
     <button data-page="home">Home</button>
 
-    <!-- ⭐ Add button now opens your Google Form -->
-<button
-  onclick="
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSdsMrPMeMYZ0cwMRBMNncdFTkAi5asBYct0znj4hVAFGcw8Xg/viewform', '_blank');
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-home').classList.add('active');
-  ">
-  Add
-</button>
-
-
-
+    <!-- ADD BUTTON (opens form + returns home) -->
+    <button onclick="
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSdJYOzlQQZk_lM3pAbCEqqzl7HqjMNH81Y6eTJwNVgq-k6SmQ/viewform', '_blank');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-home').classList.add('active');
+    ">
+      Add
+    </button>
 
     <button data-page="browse">Browse</button>
     <button data-page="tracks">Tracks</button>
